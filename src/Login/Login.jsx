@@ -24,30 +24,34 @@ const LoginPage = ({ setAuth }) => {
     return Math.floor(100000 + Math.random() * 900000).toString();
   };
 
-  const sendOtp = (emailToSend, generatedOtp) => {
-    const templateParams = {
-      to_email: emailToSend,
-      otp: generatedOtp,
-    };
-
-    emailjs
-      .send(
-        "service_vj6lmr9",
-        "template_5tftmqd",
-        templateParams,
-        "iswTxNtPdNBzKUk-V"
-      )
-      .then(() => {
-        localStorage.setItem("otp", generatedOtp);
-        localStorage.setItem("email", emailToSend);
-        setAuth(true); // ✅ tell App.js that user passed login
-        navigate("/otp");
-      })
-      .catch((err) => {
-        console.error("❌ OTP send failed", err);
-        setErrors({ username: "Failed to send OTP" });
-      });
+const sendOtp = (emailToSend, generatedOtp) => {
+  const templateParams = {
+    to_email: emailToSend,
+    otp: generatedOtp,
+    name: "Admin",         // ya user ka naam
+    title: "OTP Login",    // koi bhi title
+    email: emailToSend,    // replyTo ke liye
+    time: new Date().toLocaleString(), // optional
   };
+
+  emailjs
+    .send(
+      "service_vj6lmr9",
+      "template_5tftmqd",
+      templateParams,
+      "iswTxNtPdNBzKUk-V"
+    )
+    .then(() => {
+      localStorage.setItem("otp", generatedOtp);
+      localStorage.setItem("email", emailToSend);
+      setAuth(true);
+      navigate("/otp");
+    })
+    .catch((err) => {
+      console.error("❌ OTP send failed", err);
+      setErrors({ username: "Failed to send OTP" });
+    });
+};
 
   const validate = () => {
     const newErrors = {};
