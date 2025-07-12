@@ -7,7 +7,7 @@ import LoginPage from "./Login/Login";
 import OtpPage from "./Login/OtpPage";
 import ProtectedRoute from "./components/ProtectedRoute";
 
-import Topbar from "./scenes/global/topBar";
+import TopBar from "./scenes/global/topbar";
 import MySidebar from "./scenes/global/Sidebar";
 import Dashboard from "./scenes/dashboard";
 import Team from "./scenes/team";
@@ -109,7 +109,7 @@ function App() {
                         transition: "margin 0.3s",
                       }}
                     >
-                      <Topbar setIsSidebar={setIsSidebarCollapsed} />
+                      <TopBar setIsSidebar={setIsSidebarCollapsed} />
                       <div style={{ padding: "20px" }}>
                         <Routes>
                           <Route path="/dashboard" element={<Dashboard />} />
